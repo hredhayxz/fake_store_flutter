@@ -1,23 +1,18 @@
 import 'package:fake_store_flutter/constants/colors.dart';
+import 'package:fake_store_flutter/data/models/product_model.dart';
 import 'package:fake_store_flutter/ui/utils/package_dependency_wrapper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 class ProductCardWidget extends StatelessWidget {
-  final String imageUrl;
-  final String productName;
-  final double price;
-  final double rating;
+  final ProductModel product;
   final VoidCallback onAddToCart;
 
   const ProductCardWidget({
-    required this.imageUrl,
-    required this.productName,
-    required this.price,
-    required this.rating,
-    required this.onAddToCart,
     super.key,
+    required this.product,
+    required this.onAddToCart,
   });
 
   @override
@@ -33,7 +28,7 @@ class ProductCardWidget extends StatelessWidget {
               topRight: Radius.circular(12.r),
             ),
             child: Wrapper.setCachedNetworkImage(
-                imageUrl: imageUrl,
+                imageUrl: product.image ?? '',
                 height: 100.h,
                 width: Get.width,
                 fit: BoxFit.cover),
@@ -44,15 +39,18 @@ class ProductCardWidget extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  productName,
-                  style: textTheme.bodyLarge,
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
+                SizedBox(
+                  height: 40.h,
+                  child: Text(
+                    product.title ?? '',
+                    style: textTheme.bodyLarge,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                  ),
                 ),
                 SizedBox(height: 2.h),
                 Text(
-                  "\$${price.toStringAsFixed(2)}",
+                  "\$${product.price}",
                   style: textTheme.labelLarge,
                 ),
                 SizedBox(height: 2.h),
@@ -61,7 +59,7 @@ class ProductCardWidget extends StatelessWidget {
                     const Icon(Icons.star),
                     SizedBox(width: 4.w),
                     Text(
-                      rating.toString(),
+                      product.rating?.rate.toString() ?? '0',
                       style: TextStyle(fontSize: 14.sp),
                     ),
                   ],
