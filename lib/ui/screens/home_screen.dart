@@ -1,4 +1,5 @@
 import 'package:fake_store_flutter/controller/home_screen_controller.dart';
+import 'package:fake_store_flutter/ui/screens/cart_screen.dart';
 import 'package:fake_store_flutter/ui/widgets/custom_cart_icon_button_widget.dart';
 import 'package:fake_store_flutter/ui/widgets/product_card_widget.dart';
 import 'package:flutter/material.dart';
@@ -17,7 +18,10 @@ class HomeScreen extends GetView<HomeScreenController> {
           GetBuilder<HomeScreenController>(builder: (_) {
             return CustomCartIconButtonWidget(
               itemCount: 10,
-              onCartIconTap: () {},
+              onCartIconTap: () {
+                Get.to(() => const CartScreen(),
+                    transition: Transition.rightToLeft);
+              },
             );
           }),
         ],
