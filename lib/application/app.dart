@@ -1,4 +1,5 @@
 import 'package:fake_store_flutter/application/app_bindings.dart';
+import 'package:fake_store_flutter/application/theme_manager.dart';
 import 'package:fake_store_flutter/ui/screens/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -12,13 +13,14 @@ class FakeStoreEComApp extends StatelessWidget {
     return ScreenUtilInit(
       designSize: MediaQuery.of(context).size.width > 600
           ? const Size(834, 1194) // Tablet design size
-          : const Size(428, 926), // Mobile design size
+          : const Size(360, 800), // Mobile design size
       minTextAdapt: true,
       splitScreenMode: true,
       builder: (context, child) {
         return GetMaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'Fake Store E-Com App',
+          theme: ThemeManager.getAppTheme(),
           initialBinding: AppBindings(),
           home: const SplashScreen(),
         );
