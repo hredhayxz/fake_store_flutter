@@ -1,4 +1,5 @@
 import 'package:fake_store_flutter/controller/home_screen_controller.dart';
+import 'package:fake_store_flutter/ui/widgets/custom_cart_icon_button_widget.dart';
 import 'package:fake_store_flutter/ui/widgets/product_card_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -12,6 +13,14 @@ class HomeScreen extends GetView<HomeScreenController> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Fake Store'),
+        actions: [
+          GetBuilder<HomeScreenController>(builder: (_) {
+            return CustomCartIconButtonWidget(
+              itemCount: 10,
+              onCartIconTap: () {},
+            );
+          }),
+        ],
       ),
       body: GetBuilder<HomeScreenController>(builder: (_) {
         if (controller.isProductFetching) {
@@ -19,12 +28,11 @@ class HomeScreen extends GetView<HomeScreenController> {
             child: CircularProgressIndicator(),
           );
         }
-        if(controller.allProducts.isEmpty)
-          {
-            return const Center(
-              child: Text('No products found!'),
-            );
-          }
+        if (controller.allProducts.isEmpty) {
+          return const Center(
+            child: Text('No products found!'),
+          );
+        }
 
         return GridView.builder(
           padding: EdgeInsets.all(12.w),
