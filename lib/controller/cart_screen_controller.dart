@@ -3,6 +3,9 @@ import 'package:get/get.dart';
 
 class CartScreenController extends GetxController {
   final List<ProductModel> _allCartProducts = [];
+  double _totalPrice = 0;
+
+  double get totalPrice => _totalPrice;
 
   List<ProductModel> get allCartProducts => _allCartProducts;
 
@@ -13,7 +16,7 @@ class CartScreenController extends GetxController {
     } else {
       ++product.quantity;
     }
-
+    _calculateTotalPrice();
     update();
   }
 
@@ -25,6 +28,7 @@ class CartScreenController extends GetxController {
     } else {
       --product.quantity;
     }
+    _calculateTotalPrice();
 
     update();
   }
@@ -33,7 +37,15 @@ class CartScreenController extends GetxController {
     product.quantity = 0;
     _allCartProducts
         .removeAt(_allCartProducts.indexWhere((p) => p.id == product.id));
+    _calculateTotalPrice();
 
     update();
+  }
+
+  void _calculateTotalPrice() {
+    _totalPrice = 0;
+    for (var product in _allCartProducts) {
+      _totalPrice += product.quantity * product.price!;
+    }
   }
 }

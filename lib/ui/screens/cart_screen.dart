@@ -38,9 +38,9 @@ class CartScreen extends GetView<CartScreenController> {
               height: 52.h,
               child: ElevatedButton(
                   onPressed: () {},
-                  child: const Text(
-                    'Pay Amount: \$45',
-                    style: TextStyle(color: colorWhiteHighEmp),
+                  child: Text(
+                    'Pay Amount: \$${controller.totalPrice.toStringAsFixed(2)}',
+                    style: const TextStyle(color: colorWhiteHighEmp),
                   ))),
         ),
       );
