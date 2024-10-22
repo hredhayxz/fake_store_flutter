@@ -19,6 +19,7 @@ class ProductCartCardWidget extends StatelessWidget {
     final textTheme = Theme.of(context).textTheme;
 
     return Card(
+      color: colorWhiteHighEmp,
       shape: RoundedRectangleBorder(
         side: BorderSide(width: 1.w, color: colorNatural200),
         borderRadius: BorderRadius.circular(16.r),
@@ -36,11 +37,14 @@ class ProductCartCardWidget extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Wrapper.setCachedNetworkImage(
-              imageUrl: product.image ?? '',
-              height: 73.h,
-              width: 73.h,
-              radiusCircular: 8.r,
+            ClipRRect(
+              borderRadius: BorderRadius.circular(8.r),
+              child: Wrapper.setCachedNetworkImage(
+                imageUrl: product.image ?? '',
+                height: 73.h,
+                width: 73.h,
+                radiusCircular: 8.r,
+              ),
             ),
             SizedBox(width: 16.w),
             Expanded(
@@ -49,12 +53,28 @@ class ProductCartCardWidget extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                    'Product ${productIndex + 1}: ${product.title}',
-                    style: textTheme.labelLarge
-                        ?.copyWith(color: colorTextBlackMediumEmp),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Expanded(
+                        child: Text(
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                          'Product ${productIndex + 1}: ${product.title}',
+                          style: textTheme.labelLarge
+                              ?.copyWith(color: colorTextBlackMediumEmp),
+                        ),
+                      ),
+                      SizedBox(width: 12.w),
+                      InkWell(
+                        onTap: () {},
+                        child: const Icon(
+                          Icons.delete_forever,
+                          color: Colors.red,
+                        ),
+                      ),
+                    ],
                   ),
                   SizedBox(height: 8.h),
                   Row(
@@ -65,7 +85,7 @@ class ProductCartCardWidget extends StatelessWidget {
                         style: textTheme.labelLarge,
                       ),
                       SizedBox(width: 12.w),
-                      CustomStepper(
+                      CustomStepperWidget(
                         quantity: 3,
                         productIndex: 1,
                         onIncrement: () {},
@@ -83,13 +103,13 @@ class ProductCartCardWidget extends StatelessWidget {
   }
 }
 
-class CustomStepper extends StatelessWidget {
+class CustomStepperWidget extends StatelessWidget {
   final int quantity;
   final int productIndex;
   final VoidCallback onIncrement;
   final VoidCallback onDecrement;
 
-  const CustomStepper({
+  const CustomStepperWidget({
     super.key,
     required this.quantity,
     required this.productIndex,
@@ -107,8 +127,8 @@ class CustomStepper extends StatelessWidget {
         InkWell(
           onTap: onDecrement,
           child: Container(
-            width: 26.h,
-            height: 26.h,
+            width: 22.h,
+            height: 22.h,
             decoration: ShapeDecoration(
               color: colorNatural100,
               shape: OvalBorder(
@@ -127,8 +147,8 @@ class CustomStepper extends StatelessWidget {
         InkWell(
           onTap: onIncrement,
           child: Container(
-            width: 26.h,
-            height: 26.h,
+            width: 22.h,
+            height: 22.h,
             decoration: ShapeDecoration(
               color: colorStatusAlertLow,
               shape: OvalBorder(
