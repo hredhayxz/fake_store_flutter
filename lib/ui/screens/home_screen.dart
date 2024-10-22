@@ -16,9 +16,9 @@ class HomeScreen extends GetView<HomeScreenController> {
       appBar: AppBar(
         title: const Text('Fake Store'),
         actions: [
-          GetBuilder<HomeScreenController>(builder: (_) {
+          GetBuilder<CartScreenController>(builder: (cartController) {
             return CustomCartIconButtonWidget(
-              itemCount: 10,
+              itemCount: cartController.allCartProducts.length,
               onCartIconTap: () {
                 Get.to(() => const CartScreen(),
                     transition: Transition.rightToLeft);

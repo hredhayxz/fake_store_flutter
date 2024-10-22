@@ -16,7 +16,7 @@ class CartScreen extends GetView<CartScreenController> {
           title: const Text('Your Cart'),
         ),
         body: controller.allCartProducts.isEmpty
-            ? Center(
+            ? const Center(
                 child: Text('You have no cart product'),
               )
             : ListView.separated(
