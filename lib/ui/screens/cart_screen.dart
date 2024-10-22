@@ -13,30 +13,39 @@ class CartScreen extends GetView<CartScreenController> {
     return GetBuilder<CartScreenController>(builder: (_) {
       return Scaffold(
         appBar: AppBar(
-          title: const Text('Fake Store'),
+          title: const Text('Your Cart'),
         ),
-        body: ListView.separated(
-          padding: EdgeInsets.symmetric(horizontal: 16.r, vertical: 16.r),
-          itemCount: controller.allCartProducts.length,
-          itemBuilder: (context, index) {
-            return ProductCartCardWidget(
-              product: controller.allCartProducts[index],
-              productIndex: index,
-              onIncrement: () =>
-                  controller.addProduct(controller.allCartProducts[index]),
-              onDecrement: () =>
-                  controller.removeProduct(controller.allCartProducts[index]),
-              onDelete: () =>
-                  controller.deleteProduct(controller.allCartProducts[index]),
-            );
-          },
-          separatorBuilder: (context, index) => SizedBox(height: 4.h),
-        ),
+        body: controller.allCartProducts.isEmpty
+            ? Center(
+                child: Text('You have no cart product'),
+              )
+            : ListView.separated(
+                padding: EdgeInsets.symmetric(horizontal: 16.r, vertical: 16.r),
+                itemCount: controller.allCartProducts.length,
+                itemBuilder: (context, index) {
+                  return ProductCartCardWidget(
+                    product: controller.allCartProducts[index],
+                    productIndex: index,
+                    onIncrement: () => controller
+                        .addProduct(controller.allCartProducts[index]),
+                    onDecrement: () => controller
+                        .removeProduct(controller.allCartProducts[index]),
+                    onDelete: () => controller
+                        .deleteProduct(controller.allCartProducts[index]),
+                  );
+                },
+                separatorBuilder: (context, index) => SizedBox(height: 4.h),
+              ),
         bottomNavigationBar: Padding(
           padding: EdgeInsets.all(16.r),
           child: SizedBox(
               height: 52.h,
               child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: controller.allCartProducts.isEmpty
+                        ? colorBtnDisable
+                        : null,
+                  ),
                   onPressed: () {},
                   child: Text(
                     'Pay Amount: \$${controller.totalPrice.toStringAsFixed(2)}',
