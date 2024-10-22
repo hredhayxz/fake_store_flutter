@@ -49,7 +49,7 @@ class ThemeManager {
           elevation: 4,
           shadowColor: colorBtnShadow,
           textStyle: TextStyle(
-            color: colorWhiteTextPrimary,
+            color: colorWhiteHighEmp,
             fontSize: 16.sp,
             fontFamily: 'Inter',
             fontWeight: FontWeight.w600,
