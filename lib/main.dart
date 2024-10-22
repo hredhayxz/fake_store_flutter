@@ -1,9 +1,11 @@
 import 'package:fake_store_flutter/application/app.dart';
+import 'package:fake_store_flutter/data/local_db/local_db.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-void main() {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await LocalDB.initializeHive();
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(
         statusBarIconBrightness: Brightness.dark,

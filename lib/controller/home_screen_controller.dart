@@ -1,3 +1,4 @@
+import 'package:fake_store_flutter/data/local_db/local_db.dart';
 import 'package:fake_store_flutter/data/models/network_response.dart';
 import 'package:fake_store_flutter/data/models/product_model.dart';
 import 'package:fake_store_flutter/data/services/network_caller.dart';
@@ -29,16 +30,22 @@ class HomeScreenController extends GetxController {
     final NetworkResponse response =
         await NetworkCaller.getRequest(url: Urls.getAllProducts);
     if (response.isSuccess) {
-      List<dynamic> dataList = response.responseJson;
-      _allProducts.clear();
-      for (var data in dataList) {
-        _allProducts.add(ProductModel.fromJson(data));
-      }
+      LocalDB.homeProductData = response.responseJson;
+      _makeData(dataList: response.responseJson);
+
       _isProductFetching = false;
       update();
     } else {
       _isProductFetching = false;
+      _makeData(dataList: LocalDB.homeProductData);
       update();
+    }
+  }
+
+  void _makeData({required dynamic dataList}) {
+    _allProducts.clear();
+    for (var data in dataList) {
+      _allProducts.add(ProductModel.fromJson(data));
     }
   }
 }
