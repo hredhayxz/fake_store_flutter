@@ -1,17 +1,22 @@
 import 'package:fake_store_flutter/constants/colors.dart';
 import 'package:fake_store_flutter/data/models/product_model.dart';
 import 'package:fake_store_flutter/ui/utils/package_dependency_wrapper.dart';
+import 'package:fake_store_flutter/ui/widgets/custom_stepper_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ProductCartCardWidget extends StatelessWidget {
   final ProductModel product;
   final int productIndex;
+  final VoidCallback onIncrement, onDecrement, onDelete;
 
   const ProductCartCardWidget({
     super.key,
     required this.product,
     required this.productIndex,
+    required this.onIncrement,
+    required this.onDecrement,
+    required this.onDelete,
   });
 
   @override
@@ -67,8 +72,9 @@ class ProductCartCardWidget extends StatelessWidget {
                         ),
                       ),
                       SizedBox(width: 12.w),
-                      InkWell(
-                        onTap: () {},
+                      GestureDetector(
+                        behavior: HitTestBehavior.translucent,
+                        onTap: onDelete,
                         child: const Icon(
                           Icons.delete_forever,
                           color: Colors.red,
@@ -86,10 +92,9 @@ class ProductCartCardWidget extends StatelessWidget {
                       ),
                       SizedBox(width: 12.w),
                       CustomStepperWidget(
-                        quantity: 3,
-                        productIndex: 1,
-                        onIncrement: () {},
-                        onDecrement: () {},
+                        quantity: product.quantity,
+                        onIncrement: onIncrement,
+                        onDecrement: onDecrement,
                       ),
                     ],
                   ),
@@ -99,66 +104,6 @@ class ProductCartCardWidget extends StatelessWidget {
           ],
         ),
       ),
-    );
-  }
-}
-
-class CustomStepperWidget extends StatelessWidget {
-  final int quantity;
-  final int productIndex;
-  final VoidCallback onIncrement;
-  final VoidCallback onDecrement;
-
-  const CustomStepperWidget({
-    super.key,
-    required this.quantity,
-    required this.productIndex,
-    required this.onIncrement,
-    required this.onDecrement,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      mainAxisAlignment: MainAxisAlignment.end,
-      children: [
-        InkWell(
-          onTap: onDecrement,
-          child: Container(
-            width: 22.h,
-            height: 22.h,
-            decoration: ShapeDecoration(
-              color: colorNatural100,
-              shape: OvalBorder(
-                side: BorderSide(width: 1.w, color: colorBtnDisable),
-              ),
-            ),
-            child: const Icon(Icons.remove, color: colorBtnDisable),
-          ),
-        ),
-        SizedBox(width: 12.h),
-        Text(
-          quantity.toString(),
-          style: textTheme.headlineMedium?.copyWith(fontSize: 14.sp),
-        ),
-        SizedBox(width: 12.h),
-        InkWell(
-          onTap: onIncrement,
-          child: Container(
-            width: 22.h,
-            height: 22.h,
-            decoration: ShapeDecoration(
-              color: colorStatusAlertLow,
-              shape: OvalBorder(
-                side: BorderSide(width: 1.w, color: colorStatusWarning),
-              ),
-            ),
-            child: const Icon(Icons.add, color: colorStatusWarning),
-          ),
-        ),
-      ],
     );
   }
 }

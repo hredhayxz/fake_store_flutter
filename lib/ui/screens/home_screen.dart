@@ -1,3 +1,4 @@
+import 'package:fake_store_flutter/controller/cart_screen_controller.dart';
 import 'package:fake_store_flutter/controller/home_screen_controller.dart';
 import 'package:fake_store_flutter/ui/screens/cart_screen.dart';
 import 'package:fake_store_flutter/ui/widgets/custom_cart_icon_button_widget.dart';
@@ -49,7 +50,10 @@ class HomeScreen extends GetView<HomeScreenController> {
           itemCount: controller.allProducts.length,
           itemBuilder: (context, index) {
             return ProductCardWidget(
-              onAddToCart: () {},
+              onAddToCart: () {
+                Get.find<CartScreenController>()
+                    .addProduct(controller.allProducts[index]);
+              },
               product: controller.allProducts[index],
             );
           },

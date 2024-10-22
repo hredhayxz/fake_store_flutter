@@ -6,6 +6,7 @@ class ProductModel {
   String? category;
   String? image;
   Rating? rating;
+  int quantity = 0;
 
   ProductModel(
       {this.id,
@@ -14,7 +15,8 @@ class ProductModel {
       this.description,
       this.category,
       this.image,
-      this.rating});
+      this.rating,
+      this.quantity = 0});
 
   ProductModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -24,6 +26,7 @@ class ProductModel {
     category = json['category'];
     image = json['image'];
     rating = json['rating'] != null ? Rating.fromJson(json['rating']) : null;
+    quantity = json['quantity'] ?? 0;
   }
 
   Map<String, dynamic> toJson() {
@@ -37,6 +40,7 @@ class ProductModel {
     if (rating != null) {
       data['rating'] = rating!.toJson();
     }
+    data['quantity'] = quantity;
     return data;
   }
 }
