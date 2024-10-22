@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:fake_store_flutter/data/models/product_model.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 class LocalDB {
@@ -19,4 +18,13 @@ class LocalDB {
   // Get home product data
   static dynamic get homeProductData =>
       jsonDecode(_box.get('allHomeProduct') ?? '{}');
+
+  /// For all cart product data
+  //Store cart product data
+  static set cartProductData(dynamic productData) =>
+      _box.put('allCartProduct', jsonEncode(productData));
+
+  // Get cart product data
+  static dynamic get cartProductData =>
+      jsonDecode(_box.get('allCartProduct') ?? '{}');
 }

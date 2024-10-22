@@ -23,6 +23,7 @@ class HomeScreenController extends GetxController {
     });
   }
 
+  // Call api and get all product
   Future<void> getAllProducts() async {
     _isProductFetching = true;
     update();
@@ -42,6 +43,7 @@ class HomeScreenController extends GetxController {
     }
   }
 
+  // This method for make ProductModel type data
   void _makeData({required dynamic dataList}) {
     _allProducts.clear();
     for (var data in dataList) {

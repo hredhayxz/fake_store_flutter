@@ -18,8 +18,6 @@ const colorStatusError = Color(0xFFFF6B6B);
 const colorWhiteTextPrimary = Colors.white;
 const colorWhiteText200LowEmp = Color(0xFFD1D1D1);
 const colorTextBlackMediumEmp = Color(0xFF4F4F4F);
-const colorTextBlackLowEmp = Color(0xFF888888);
-
 const colorNatural600 = Color(0xFF757575);
 const colorNatural500 = Color(0xFF9E9E9E);
 const colorNatural400 = Color(0xFFBDBDBD);
